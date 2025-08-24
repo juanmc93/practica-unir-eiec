@@ -6,6 +6,7 @@ Pequeño proyecto para practicar **GitHub Flow** y **Pull Requests**.
 - `sort_words.py`: script que ordena palabras desde un fichero o stdin.
 - `palabras.txt`: fichero de ejemplo (una palabra por línea).
 - `Makefile`: incluye la directiva `run-local` para ejecutar el script.
+- PRUEBAS devops.
 
 ## Requisitos
 - Python 3.8+
