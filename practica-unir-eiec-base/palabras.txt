@@ -5,3 +5,4 @@ banana
 kiwi
 durazno
 manzana
+frutilla
