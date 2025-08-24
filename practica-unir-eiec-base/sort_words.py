@@ -1,27 +1,28 @@
-#!/usr/bin/env python3
-import argparse, sys
+import argparse
 
-def sort_list(words, descending=False, unique=False):
-    items = words
-    if unique:
-        # elimina duplicados preservando el orden de aparición
-        items = list(dict.fromkeys(items))
-    return sorted(items, reverse=descending)
-
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Sort words from a file or stdin.")
-    parser.add_argument("file", nargs="?", help="Input file with one word per line. If omitted, reads stdin.")
-    parser.add_argument("--orden", choices=["asc","desc"], default="asc", help="Orden de salida")
-    parser.add_argument("--unique", action="store_true", help="Eliminar duplicados antes de ordenar")
+def main():
+    parser = argparse.ArgumentParser(description="Ordena palabras desde un archivo")
+    parser.add_argument("archivo", help="Ruta del archivo de texto con palabras")
+    parser.add_argument("--orden", choices=["asc", "desc"], default="asc",
+                        help="Orden de las palabras (asc o desc). Por defecto: asc")
+    parser.add_argument("--unique", action="store_true",
+                        help="Elimina palabras repetidas antes de ordenar")
     args = parser.parse_args()
 
-    data = []
-    if args.file:
-        with open(args.file, encoding="utf-8") as f:
-            data = [line.strip() for line in f if line.strip()]
-    else:
-        data = [line.strip() for line in sys.stdin if line.strip()]
+    # Leer archivo
+    with open(args.archivo, "r") as f:
+        palabras = f.read().split()
 
-    descending = (args.orden == "desc")
-    for w in sort_list(data, descending=descending, unique=args.unique):
-        print(w)
+    # Eliminar duplicados si se usa --unique
+    if args.unique:
+        palabras = list(set(palabras))
+
+    # Ordenar
+    palabras.sort(reverse=(args.orden == "desc"))
+
+    # Imprimir resultado
+    for palabra in palabras:
+        print(palabra)
+
+if __name__ == "__main__":
+    main()
